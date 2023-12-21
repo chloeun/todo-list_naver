@@ -1,6 +1,6 @@
 # 📌 기업의 할 일(Todo) 관리 페이지 만들기
 
-주어진 API를 활용해 '[완성 예시](https://beautiful-daifuku-b9462c.netlify.app/)' 처럼 자유롭게 기업의 할 일 관리(Todo) 기능을 구현해보세요!    
+주어진 API를 활용해 '[완성 예시](https://todo-vite-vue3-composition-ts.vercel.app/)' 처럼 자유롭게 기업의 할 일 관리(Todo) 기능을 구현해보세요!    
 과제 수행 및 리뷰 기간은 별도 공지를 참고하세요!
 
 ## 과제 수행 및 제출 방법
