@@ -4,9 +4,13 @@ import TodoItem from './TodoItem';
 import TodoList from './TodoList'
 
 export default class TodoListTabs extends Component {
-  constructor(props) {
+  constructor() {
 		super({
-      props,
+      
+    });
+    todoStore.subscribe('tasks', () => {
+      this.render()
+      
     })
   }
   
@@ -23,7 +27,7 @@ export default class TodoListTabs extends Component {
 
     let currentTab = 'all'; // 초기 탭 상태 설정
     let filteredTasks = [...todoStore.state.tasks]; // 현재 필터링된 결과를 저장하는 변수 추가
-    
+
     const renderTasks = () => {
       const todoListContainer = document.querySelector('.todos');
       todoListContainer.innerHTML = ''; // Clear the previous content before rendering
@@ -36,7 +40,7 @@ export default class TodoListTabs extends Component {
       console.log(filteredTasks); 
     };
 
-  const handleTabClick = (status) => {
+    const handleTabClick = (status) => {
     if (currentTab === status) return; // 이미 선택된 탭인 경우 무시
     const previousActiveTab = this.el.querySelector(`.category-item.${currentTab}`);
     previousActiveTab.classList.remove('active-tab');
@@ -47,6 +51,9 @@ export default class TodoListTabs extends Component {
     currentActiveTab.classList.add('active-tab');
   
     switch (status) {
+      case 'all':
+      filteredTasks = [...todoStore.state.tasks];
+      break;
       case 'todo':
         filteredTasks = todoStore.state.tasks.filter(task => !task.done);
         break;
@@ -66,6 +73,8 @@ export default class TodoListTabs extends Component {
     const tabElement = this.el.querySelector(`.${tab}`);
     tabElement.addEventListener('click', () => handleTabClick(tab));
   });
+  
+  
   const initialTasks = [...todoStore.state.tasks];
 
   }

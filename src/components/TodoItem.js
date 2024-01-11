@@ -8,6 +8,7 @@ export default class TodoItem extends Component {
       props,
     })
 	}
+  
   render() {
     const { task } = this.props
     console.log(task.done)
@@ -84,7 +85,6 @@ export default class TodoItem extends Component {
     checkbox.addEventListener('click', (event) =>{ 
       if (checkbox.checked)
       {
-        console.log('yay')
         updateCheckbox(task, true)
         eachItem.style.color= 'rgb(170, 168, 168)'
         eachItem.style.textDecoration='line-through'
@@ -94,7 +94,6 @@ export default class TodoItem extends Component {
         eachItem.style.color = '';
         updateCheckbox(task, false)
       }
-    })
-          
+    })      
   }
 } 

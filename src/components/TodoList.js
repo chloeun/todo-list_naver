@@ -1,6 +1,7 @@
 import { Component } from '../core/chloeun';
 import todoStore, { readTodo, deleteTodo, deleteTodos } from '../store/todo'
 import TodoItem from './TodoItem';
+// import TodoListTabs, { handleTabClick } from './TodoListTabs'
 
 export default class TodoList extends Component {
   constructor(props) {

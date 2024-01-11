@@ -79,6 +79,7 @@ export const updateTodo = async (task, editedTitle, editedDone) => {
 }
 
 export const updateCheckbox = async (task, editedDone) => {
+
   const res = await fetch(
     `https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${task.id}`, 
     {
@@ -95,12 +96,14 @@ export const updateCheckbox = async (task, editedDone) => {
     })
   });
   const json = await res.json()
+  readTodo()
   return res
 }
 
 //DELETE//
 
 export const deleteTodo = async (todoId) => {
+
   const res = await fetch(
     `https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${todoId}`, 
     {
@@ -121,6 +124,7 @@ export const deleteTodo = async (todoId) => {
 //DELETIONS//
 
 export const deleteTodos = async (todoIds) => {
+  console.log ('deleteTodos')
   const res = await fetch(
     'https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/deletions', 
     {
