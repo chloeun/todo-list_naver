@@ -23,6 +23,29 @@ $primary-color: #212121;
 $secondary-color: #333;
 $background-color: #eeeaea;
 
+
+// Loading Animation //
+.loaderwrap {
+  padding-top: 5px;
+  margin: 0 15px;
+}
+.the-loader {
+  width: 20px;
+  height: 20px;
+  margin: 10px auto;
+  border: 4px solid $color-green;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: loader 1s infinite linear;
+}
+.the-loader.hide {
+  display: none;
+}
+@keyframes loader {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 // Body //
 body {
   background-color: $color-white;
@@ -39,6 +62,17 @@ body {
   border-radius: 15px;
   border: 3px solid  #E5E6E7;
   background-color: #F8F9FA;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 40px
+  }
+}
+@media (max-width: 600px) {
+  .container {
+    padding: 20px
+  }
 }
 
 // Header //
@@ -76,6 +110,7 @@ header {
       margin: 0 10px;
       color: $color-white;
       align-items: center;
+      font-family: "Pretendard Variable", "Noto Sans KR", "Apple SD Gothic Neo", "맑은 고딕", "Malgun Gothic", sans-serif;
     }
   }
 
@@ -106,6 +141,14 @@ header {
     }
   }
 }
+@media (max-width: 600px) {
+  header {
+    padding: 14px 20px;
+  }
+  header nav {
+    display: none;
+  }
+}
 
 // Headline //
 .headline {
@@ -124,7 +167,11 @@ header {
     font-weight: bold;
   }
 }
-
+@media (max-width: 600px) {
+  .headline h1 {
+    font-size: 20px;
+  }
+}
 // Create Todo //
 .createtodo {
   height: 80px;
@@ -216,7 +263,11 @@ header {
   .todo-list-items {
     color: black;
   }
-
+  .todo-list-top {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+  }
   .deleteAll {
     width: 100px;
     height: 40px;
@@ -241,7 +292,6 @@ header {
       border: 3px solid $hover-color;
     }
   }
-
   .eachItem {
     height: 55px;
     display: flex;
@@ -310,17 +360,24 @@ header {
     flex-direction: column;
     font-size: 15px;
 
-    p {
+    .created-at, .updated-at {
+      display: flex;
+      flex-direction: row;
       color: gray;
+      margin-bottom: 5px;
+      margin: 0px auto 5px;
+      span {
+        font-size: 20px;
+        padding: 3px 5px 0 0;
+      }
     }
-
     input {
       width: 300px;
       height: 30px;
       font-size: 20px;
       justify-content: center;
       padding: 20px;
-      margin: 50px auto 0;
+      margin: 40px auto 0;
       outline: none;
       border: solid 3px $border-color;
       border-radius: 10px;
@@ -334,7 +391,7 @@ header {
 
     .buttons {
       display: flex;
-      margin: 30px auto 25px;
+      margin: 30px auto 15px;
       justify-content: center;
 
       button {

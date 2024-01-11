@@ -1,7 +1,10 @@
 import { Component } from '../core/chloeun';
-import todoStore, { readTodo, deleteTodo, deleteTodos } from '../store/todo'
+import todoStore, { readTodo, deleteTodo, deleteTodos, reorderTodo } from '../store/todo'
 import TodoItem from './TodoItem';
-// import TodoListTabs, { handleTabClick } from './TodoListTabs'
+import Sortable from 'sortablejs';
+
+
+const SECOND_TO_MS = 1000
 
 export default class TodoList extends Component {
   constructor(props) {
@@ -11,7 +14,9 @@ export default class TodoList extends Component {
     readTodo()
     todoStore.subscribe('tasks', () => {
       this.render()
-      
+    })
+    todoStore.subscribe('loading', () => {
+      this.render()
     })
   }
   render(){
@@ -19,10 +24,14 @@ export default class TodoList extends Component {
     const { task } = this.props;
     this.el.classList.add('todo-list')
     this.el.innerHTML = /* html */ `
-      <a class = 'deleteAll'>
-        <span> Delete All </span>
-      </a>
-      <div class ='todos'></div>
+      <div class='todo-list-top'>
+        <a class = 'deleteAll'>
+          <span> Delete All </span>
+        </a>
+        <div class='loaderwrap'><div class='the-loader hide'></div></div>
+      </div>
+      <div class ='todos sortable'></div>
+      
     `
     console.log(todoStore.state.tasks)
     const tasksEl = this.el.querySelector ('.todos')
@@ -43,6 +52,69 @@ export default class TodoList extends Component {
       console.log(taskIds)
       deleteTodos(taskIds)
     })
+
+    // LOADER //
+
+    const loaderEl = this.el.querySelector('.the-loader')
+    todoStore.state.loading 
+      ? loaderEl.classList.remove('hide') 
+      : loaderEl.classList.add('hide') 
+
+    // CHANGE ORDER //
+
+    // const reorderTodoEl = this.el.querySelector('.todos') 
+    // let sortables = Sortable.create(reorderTodoEl)
+
+    // $(function () {
+    //   $('.sortable').sortable();
+    //   $('.sortable').disableSelection();
+    // });
+    
+    // tasksEl.addEventListener('mouseup', async () => {
+    //   setTimeout( async() => {
+    //     const allTasks = todoStore.state.tasks;
+    //     let taskIds = allTasks.map(task => task.id);
+        
+    //     // Use the correct method to get the updated order
+    //     const updatedOrder = $('.sortable').sortable('toArray');
+    //     await reorderTodo(updatedOrder);
+    //     console.log(allTasks);
+        
+    //   }, SECOND_TO_MS,
+      
+    //   );
+    // } 
+    // );
+    
+
+    // $(function () {
+    //   $('.sortable').sortable({
+    //     stop: async function (event, ui) {
+    //       // Get the updated order after sorting
+    //       const updatedOrder = $('.sortable').sortable('toArray');
+    
+    //       // Call your reorderTodo function to update the backend
+    //       await reorderTodo(updatedOrder);
+    //     }
+    //   });
+    
+    //   // Disable text selection while dragging
+    //   $('.sortable').disableSelection();
+    // });
+    
+    // tasksEl.addEventListener('mouseup', () => {
+    //   setTimeout(async () => {
+    //     const allTasks = todoStore.state.tasks;
+    //     let taskIds = allTasks.map(task => task.id);
+    
+    //     // Call your reorderTodo function to update the backend
+    //     await reorderTodo(taskIds);
+    
+    //     console.log(allTasks);
+    //   }, SECOND_TO_MS);
+    // });
+    
+    
   }
   
 }

@@ -15,6 +15,7 @@ export default class TodoItem extends Component {
     this.el.classList.add('todoItem')
     this.el.innerHTML = /* html */ `
       <div class='eachItem'>
+        
         <input type='checkbox' ${task.done? 'checked' : ''}/>
         <a class='btnOpenModal _eachItem'> ${task.title}</a>
         <button class='deleteitem'>
@@ -23,15 +24,22 @@ export default class TodoItem extends Component {
       </div>
       <div class='modal' style="display:none">
         <div class ='modalBody'>
-          <p> created at: ${getFormatDate(task.createdAt)} </p>
-          <p> updated at: ${getFormatDate(task.updatedAt)} </p>
+          <div class='created-at'>
+            <span class="material-symbols-outlined">add_task</span>
+            <p> created at: ${getFormatDate(task.createdAt)} </p>
+          </div>
+          <div class='updated-at'>
+            <span class="material-symbols-outlined">Edit</span>
+            <p> updated at: ${getFormatDate(task.updatedAt)} </p>
+          </div>
           <input class='title' value='${task.title}' />
           <div class = 'buttons'>
             <button class='btnEditModal'>Edit</button>
             <button button class='btnCloseModal'>Close</button>
           </div>
         </div>
-      </div> 
+      </div>
+      
     `
     //DELETE//
 
@@ -40,6 +48,7 @@ export default class TodoItem extends Component {
       deleteTodo(task.id)
     })
 
+    
     //MODAL//
 
     const modal = this.el.querySelector('.modal')
@@ -94,6 +103,10 @@ export default class TodoItem extends Component {
         eachItem.style.color = '';
         updateCheckbox(task, false)
       }
-    })      
+    }) 
+    // const loaderEl = this.el.querySelector('.the-loader')
+    // todoStore.state.loading 
+    //   ? loaderEl.classList.remove('hide') 
+    //   : loaderEl.classList.add('hide') 
   }
 } 

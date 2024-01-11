@@ -4,16 +4,17 @@ import { Store } from '../core/chloeun';
 const store = new Store({
   tasks: [],
   // status: "all",
-  // loading: false,
+  loading: false,
   // deleteAllLoading: false,
 });
 
 
 export default store;
 
-//GET//
+// READ TODO //
 
 export const readTodo = async () => {
+  store.state.loading = true
   // console.log ('readTodo')
   const res = await fetch(
     'https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos', 
@@ -27,10 +28,10 @@ export const readTodo = async () => {
   });
   const tasks = await res.json()
   store.state.tasks = [... tasks]
-  // window.onload = readTodo()
+  store.state.loading = false
 }
 
-//POST//
+// CREATE TODO //
 
 export const createTodo = async (title) => {
   const res = await fetch(
@@ -53,7 +54,7 @@ export const createTodo = async (title) => {
 }
 
 
-//PUT//
+// EDIT TODO //
 
 export const updateTodo = async (task, editedTitle, editedDone) => {
   console.log ('updateTodo')
@@ -75,8 +76,11 @@ export const updateTodo = async (task, editedTitle, editedDone) => {
     })
   });
   const json = await res.json()
+  readTodo()
   return res
 }
+
+// CHECKBOX //
 
 export const updateCheckbox = async (task, editedDone) => {
 
@@ -100,6 +104,27 @@ export const updateCheckbox = async (task, editedDone) => {
   return res
 }
 
+// CHANGE ORDER //
+
+export const reorderTodo = async (todoIds) => {
+  console.log('change order')
+		const res = await fetch(
+			`https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/reorder`,
+			{
+				method: 'PUT',
+				headers: {
+          'content-type': 'application/json',
+          'apikey': 'KDT7_GrZ1eYBo',
+          'username': 'KDT7_KimJeongEun'
+				},
+				body: JSON.stringify({
+					todoIds: todoIds
+				})
+			})
+      const item = await res.json()
+      return res
+}
+
 //DELETE//
 
 export const deleteTodo = async (todoId) => {
@@ -121,7 +146,7 @@ export const deleteTodo = async (todoId) => {
   
 }
 
-//DELETIONS//
+//DELETE ALL//
 
 export const deleteTodos = async (todoIds) => {
   console.log ('deleteTodos')
