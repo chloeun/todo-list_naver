@@ -33,7 +33,6 @@ export const readTodo = async () => {
 //POST//
 
 export const createTodo = async (title) => {
-  console.log (title)
   const res = await fetch(
     'https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos', 
     {
@@ -50,16 +49,58 @@ export const createTodo = async (title) => {
   });
   const json = await res.json()
   readTodo()
-  console.log(json)
   return json
 }
 
 
+//PUT//
+
+export const updateTodo = async (task, editedTitle, editedDone) => {
+  console.log ('updateTodo')
+  console.log(task)
+
+  const res = await fetch(
+    `https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${task.id}`, 
+    {
+    method: 'PUT',
+    headers: {
+      'content-type': 'application/json',
+      'apikey': 'KDT7_GrZ1eYBo',
+      'username': 'KDT7_KimJeongEun'
+    },
+    body: JSON.stringify({
+      title: editedTitle,
+      done: editedDone
+      // order:  // 적절한 순서 값 사용
+    })
+  });
+  const json = await res.json()
+  return res
+}
+
+export const updateCheckbox = async (task, editedDone) => {
+  const res = await fetch(
+    `https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${task.id}`, 
+    {
+    method: 'PUT',
+    headers: {
+      'content-type': 'application/json',
+      'apikey': 'KDT7_GrZ1eYBo',
+      'username': 'KDT7_KimJeongEun'
+    },
+    body: JSON.stringify({
+      title: task.title,
+      done: editedDone
+      // order:  // 적절한 순서 값 사용
+    })
+  });
+  const json = await res.json()
+  return res
+}
+
 //DELETE//
 
 export const deleteTodo = async (todoId) => {
-  console.log ('deleteTodo')
-  console.log (todoId)
   const res = await fetch(
     `https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${todoId}`, 
     {
@@ -77,5 +118,25 @@ export const deleteTodo = async (todoId) => {
   
 }
 
+//DELETIONS//
+
+export const deleteTodos = async (todoIds) => {
+  const res = await fetch(
+    'https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/deletions', 
+    {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+      'apikey': 'KDT7_GrZ1eYBo',
+      'username': 'KDT7_KimJeongEun'
+    },
+    body: JSON.stringify({
+      todoIds: todoIds
+    })
+  });
+  const json = await res.json()
+  readTodo()
+  return json
+}
 
 
