@@ -96,7 +96,6 @@ export default class TodoItem extends Component {
       {
         updateCheckbox(task, true)
         eachItem.style.color= 'rgb(170, 168, 168)'
-        eachItem.style.textDecoration='line-through'
       }
       else {
         eachItem.style.textDecoration='none'
@@ -104,9 +103,5 @@ export default class TodoItem extends Component {
         updateCheckbox(task, false)
       }
     }) 
-    // const loaderEl = this.el.querySelector('.the-loader')
-    // todoStore.state.loading 
-    //   ? loaderEl.classList.remove('hide') 
-    //   : loaderEl.classList.add('hide') 
   }
 } 
