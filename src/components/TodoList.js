@@ -1,7 +1,6 @@
 import { Component } from '../core/chloeun';
 import todoStore, { readTodo, deleteTodo, deleteTodos, reorderTodo } from '../store/todo'
 import TodoItem from './TodoItem';
-import Sortable from 'sortablejs';
 
 
 const SECOND_TO_MS = 1000
@@ -59,61 +58,6 @@ export default class TodoList extends Component {
     todoStore.state.loading 
       ? loaderEl.classList.remove('hide') 
       : loaderEl.classList.add('hide') 
-
-    // CHANGE ORDER //
-
-    // const reorderTodoEl = this.el.querySelector('.todos') 
-    // let sortables = Sortable.create(reorderTodoEl)
-
-    // $(function () {
-    //   $('.sortable').sortable();
-    //   $('.sortable').disableSelection();
-    // });
-    
-    // tasksEl.addEventListener('mouseup', async () => {
-    //   setTimeout( async() => {
-    //     const allTasks = todoStore.state.tasks;
-    //     let taskIds = allTasks.map(task => task.id);
-        
-    //     // Use the correct method to get the updated order
-    //     const updatedOrder = $('.sortable').sortable('toArray');
-    //     await reorderTodo(updatedOrder);
-    //     console.log(allTasks);
-        
-    //   }, SECOND_TO_MS,
-      
-    //   );
-    // } 
-    // );
-    
-
-    // $(function () {
-    //   $('.sortable').sortable({
-    //     stop: async function (event, ui) {
-    //       // Get the updated order after sorting
-    //       const updatedOrder = $('.sortable').sortable('toArray');
-    
-    //       // Call your reorderTodo function to update the backend
-    //       await reorderTodo(updatedOrder);
-    //     }
-    //   });
-    
-    //   // Disable text selection while dragging
-    //   $('.sortable').disableSelection();
-    // });
-    
-    // tasksEl.addEventListener('mouseup', () => {
-    //   setTimeout(async () => {
-    //     const allTasks = todoStore.state.tasks;
-    //     let taskIds = allTasks.map(task => task.id);
-    
-    //     // Call your reorderTodo function to update the backend
-    //     await reorderTodo(taskIds);
-    
-    //     console.log(allTasks);
-    //   }, SECOND_TO_MS);
-    // });
-    
     
   }
   
